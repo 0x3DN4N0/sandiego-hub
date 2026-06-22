@@ -2,16 +2,16 @@
 
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CalendarX } from "lucide-react";
+import { CalendarClock, CalendarX } from "lucide-react";
 
 import { EventCard } from "@/components/cards/EventCard";
-import { getAllEvents } from "@/lib/data/events";
 import {
   CARD_GRID_3,
   PAGE_CONTAINER,
   PAGE_SECTION,
 } from "@/lib/layout-classes";
 import { cn } from "@/lib/utils";
+import type { SDEvent } from "@/types";
 
 const FILTERS = [
   "All",
@@ -27,25 +27,43 @@ const FILTERS = [
 
 type Filter = (typeof FILTERS)[number];
 
-const ALL_EVENTS = getAllEvents();
-
-function matchesFilter(
-  filter: Filter,
-  event: ReturnType<typeof getAllEvents>[number],
-): boolean {
+function matchesFilter(filter: Filter, event: SDEvent): boolean {
   if (filter === "All") return true;
   if (filter === "Free") return event.isFree;
   if (filter === "Outdoor") return event.isOutdoor;
   return event.category.includes(filter);
 }
 
-export function EventsContent() {
+type EventsContentProps = {
+  events: SDEvent[];
+};
+
+export function EventsContent({ events }: EventsContentProps) {
   const [activeFilter, setActiveFilter] = useState<Filter>("All");
 
   const filteredEvents = useMemo(
-    () => ALL_EVENTS.filter((event) => matchesFilter(activeFilter, event)),
-    [activeFilter],
+    () => events.filter((event) => matchesFilter(activeFilter, event)),
+    [events, activeFilter],
   );
+
+  if (events.length === 0) {
+    return (
+      <div className={cn(PAGE_CONTAINER, PAGE_SECTION)}>
+        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-sand/50 px-6 py-16 text-center">
+          <div className="flex size-12 items-center justify-center rounded-full bg-ocean/10 text-ocean">
+            <CalendarClock className="size-6" aria-hidden />
+          </div>
+          <h2 className="mt-4 font-heading text-xl font-semibold text-foreground">
+            Events coming soon
+          </h2>
+          <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
+            We&apos;re refreshing San Diego happenings — check back shortly for
+            festivals, live music, and local events.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

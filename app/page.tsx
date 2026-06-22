@@ -23,12 +23,12 @@ export const metadata: Metadata = createPageMetadata({
   path: "/",
 });
 
-export default function Home() {
+export default async function Home() {
   const featuredBeaches = getAllBeaches().slice(0, 4);
   const featuredRestaurants = getAllRestaurants().slice(0, 4);
   const featuredNightlife = getAllNightlifeVenues().slice(0, 4);
   const featuredNeighborhoods = getAllNeighborhoods().slice(0, 4);
-  const featuredEvents = getAllEvents().slice(0, 4);
+  const featuredEvents = (await getAllEvents()).slice(0, 4);
 
   return (
     <>

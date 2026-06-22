@@ -40,6 +40,8 @@ export interface SDEvent {
   title: string;
   description: string;
   date: string;
+  /** ISO 8601 start time for date-aware category tags */
+  startsAt?: string;
   category: string[];
   isFree: boolean;
   isOutdoor: boolean;

@@ -1,13 +1,16 @@
 import type { SDEvent } from "@/types";
 
-export const events: SDEvent[] = [
+import { fetchTicketmasterEvents } from "@/lib/services/ticketmaster";
+import { enrichEvents } from "@/lib/utils/event-tags";
+
+export const staticEvents: SDEvent[] = [
   {
     slug: "mercato-farmers-market",
     title: "Little Italy Mercato Farmers Market",
     description:
       "Saturday morning market with local produce, artisan goods, live music, and the best people-watching in the city.",
     date: "Every Saturday, 8am–2pm",
-    category: ["This Weekend", "Free", "Food", "Outdoor"],
+    category: ["Free", "Food", "Outdoor"],
     isFree: true,
     isOutdoor: true,
   },
@@ -17,7 +20,8 @@ export const events: SDEvent[] = [
     description:
       "Free live music on the Mission Beach boardwalk with ocean breezes and carnival lights.",
     date: "Friday, June 20 — 7pm",
-    category: ["Tonight", "This Weekend", "Free", "Music", "Outdoor"],
+    startsAt: "2026-06-20T19:00:00-07:00",
+    category: ["Free", "Music", "Outdoor"],
     isFree: true,
     isOutdoor: true,
   },
@@ -27,7 +31,8 @@ export const events: SDEvent[] = [
     description:
       "Annual celebration with live performers, local vendors, and San Diego's most vibrant street party.",
     date: "Saturday, July 12 — 12pm–8pm",
-    category: ["This Weekend", "Music", "LGBTQ+", "Outdoor"],
+    startsAt: "2026-07-12T12:00:00-07:00",
+    category: ["Music", "LGBTQ+", "Outdoor"],
     isFree: false,
     isOutdoor: true,
   },
@@ -47,6 +52,7 @@ export const events: SDEvent[] = [
     description:
       "Premier culinary event with tastings from top local chefs, wineries, and craft brewers.",
     date: "Saturday, November 15 — 12pm–5pm",
+    startsAt: "2026-11-15T12:00:00-08:00",
     category: ["Food", "Outdoor"],
     isFree: false,
     isOutdoor: true,
@@ -57,7 +63,8 @@ export const events: SDEvent[] = [
     description:
       "Classic OB festival with live bands, local artisans, and a legendary chili competition.",
     date: "Saturday, June 28 — 10am–6pm",
-    category: ["This Weekend", "Free", "Music", "Food", "Outdoor"],
+    startsAt: "2026-06-28T10:00:00-07:00",
+    category: ["Free", "Music", "Food", "Outdoor"],
     isFree: true,
     isOutdoor: true,
   },
@@ -67,7 +74,8 @@ export const events: SDEvent[] = [
     description:
       "Up-and-coming indie bands take the stage at the Gaslamp's iconic live music venue.",
     date: "Friday, June 20 — 8pm",
-    category: ["Tonight", "Music"],
+    startsAt: "2026-06-20T20:00:00-07:00",
+    category: ["Music"],
     isFree: false,
     isOutdoor: false,
   },
@@ -77,7 +85,8 @@ export const events: SDEvent[] = [
     description:
       "Two-day festival featuring 150+ artists, wine tastings, and live entertainment in the Village.",
     date: "Saturday–Sunday, October 11–12",
-    category: ["This Weekend", "Arts", "Food", "Outdoor"],
+    startsAt: "2026-10-11T10:00:00-07:00",
+    category: ["Arts", "Food", "Outdoor"],
     isFree: false,
     isOutdoor: true,
   },
@@ -87,7 +96,8 @@ export const events: SDEvent[] = [
     description:
       "San Diego's LGBTQ+ theatre company opens a bold new play in University Heights.",
     date: "Opens Friday, June 20 — 7:30pm",
-    category: ["Tonight", "This Weekend", "Arts", "LGBTQ+"],
+    startsAt: "2026-06-20T19:30:00-07:00",
+    category: ["Arts", "LGBTQ+"],
     isFree: false,
     isOutdoor: false,
   },
@@ -97,11 +107,15 @@ export const events: SDEvent[] = [
     description:
       "Bring a blanket and enjoy live jazz against one of San Diego's most dramatic backdrops.",
     date: "Sunday, June 22 — 5pm–8pm",
-    category: ["This Weekend", "Free", "Music", "Outdoor"],
+    startsAt: "2026-06-22T17:00:00-07:00",
+    category: ["Free", "Music", "Outdoor"],
     isFree: true,
     isOutdoor: true,
   },
 ];
+
+/** @deprecated Use staticEvents — kept for backwards compatibility */
+export const events = staticEvents;
 
 export type EventFilter = {
   category?: string;
@@ -109,16 +123,25 @@ export type EventFilter = {
   isOutdoor?: boolean;
 };
 
-export function getAllEvents(): SDEvent[] {
-  return events;
+async function loadEvents(): Promise<SDEvent[]> {
+  const apiEvents = await fetchTicketmasterEvents();
+  const source = apiEvents?.length ? apiEvents : staticEvents;
+  return enrichEvents(source);
 }
 
-export function getEventBySlug(slug: string): SDEvent | undefined {
-  return events.find((e) => e.slug === slug);
+export async function getAllEvents(): Promise<SDEvent[]> {
+  return loadEvents();
 }
 
-export function filterEvents(filters: EventFilter): SDEvent[] {
-  return events.filter((event) => {
+export async function getEventBySlug(slug: string): Promise<SDEvent | undefined> {
+  const allEvents = await loadEvents();
+  return allEvents.find((event) => event.slug === slug);
+}
+
+export async function filterEvents(filters: EventFilter): Promise<SDEvent[]> {
+  const allEvents = await loadEvents();
+
+  return allEvents.filter((event) => {
     if (filters.category && !event.category.includes(filters.category)) {
       return false;
     }

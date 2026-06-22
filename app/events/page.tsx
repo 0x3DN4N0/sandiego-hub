@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { EventsContent } from "@/components/events/EventsContent";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { getAllEvents } from "@/lib/data/events";
 import { createPageMetadata } from "@/lib/site-metadata";
 
 export const metadata: Metadata = createPageMetadata({
@@ -11,14 +12,16 @@ export const metadata: Metadata = createPageMetadata({
   path: "/events",
 });
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const events = await getAllEvents();
+
   return (
     <>
       <PageHeader
         title="Events"
         description="Festivals, markets, live music, and happenings worth planning your weekend around."
       />
-      <EventsContent />
+      <EventsContent events={events} />
     </>
   );
 }
