@@ -6,6 +6,8 @@ export interface Neighborhood {
   vibe: string;
   priceLevel: string;
   suggestedActivities: string[];
+  lat: number;
+  lng: number;
 }
 
 export interface Beach {
@@ -16,6 +18,8 @@ export interface Beach {
   crowdLevel: string;
   parkingDifficulty: string;
   vibe: string;
+  lat: number;
+  lng: number;
 }
 
 export interface Restaurant {

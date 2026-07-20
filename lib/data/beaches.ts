@@ -10,6 +10,8 @@ export const beaches: Beach[] = [
     crowdLevel: "Moderate",
     parkingDifficulty: "Moderate",
     vibe: "Relaxed & scenic",
+    lat: 32.8569,
+    lng: -117.2571,
   },
   {
     slug: "coronado-beach",
@@ -20,6 +22,8 @@ export const beaches: Beach[] = [
     crowdLevel: "Moderate",
     parkingDifficulty: "Easy",
     vibe: "Classic & spacious",
+    lat: 32.6807,
+    lng: -117.1784,
   },
   {
     slug: "pacific-beach",
@@ -30,6 +34,8 @@ export const beaches: Beach[] = [
     crowdLevel: "High",
     parkingDifficulty: "Difficult",
     vibe: "Lively & youthful",
+    lat: 32.7977,
+    lng: -117.2554,
   },
   {
     slug: "mission-beach",
@@ -40,6 +46,8 @@ export const beaches: Beach[] = [
     crowdLevel: "High",
     parkingDifficulty: "Difficult",
     vibe: "Classic boardwalk",
+    lat: 32.7706,
+    lng: -117.2525,
   },
   {
     slug: "ocean-beach",
@@ -50,6 +58,8 @@ export const beaches: Beach[] = [
     crowdLevel: "Moderate",
     parkingDifficulty: "Moderate",
     vibe: "Bohemian & authentic",
+    lat: 32.7494,
+    lng: -117.2528,
   },
   {
     slug: "windansea-beach",
@@ -60,6 +70,8 @@ export const beaches: Beach[] = [
     crowdLevel: "Low",
     parkingDifficulty: "Difficult",
     vibe: "Hidden gem",
+    lat: 32.8297,
+    lng: -117.2808,
   },
   {
     slug: "torrey-pines",
@@ -70,6 +82,8 @@ export const beaches: Beach[] = [
     crowdLevel: "Moderate",
     parkingDifficulty: "Moderate",
     vibe: "Natural & serene",
+    lat: 32.9214,
+    lng: -117.2592,
   },
   {
     slug: "sunset-cliffs",
@@ -80,6 +94,8 @@ export const beaches: Beach[] = [
     crowdLevel: "Moderate",
     parkingDifficulty: "Moderate",
     vibe: "Dramatic & romantic",
+    lat: 32.7264,
+    lng: -117.2553,
   },
 ];
 

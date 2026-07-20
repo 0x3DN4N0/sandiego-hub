@@ -14,6 +14,8 @@ export const neighborhoods: Neighborhood[] = [
       "Browse galleries on Prospect Street",
       "Watch sunset from Scripps Pier",
     ],
+    lat: 32.8328,
+    lng: -117.2713,
   },
   {
     slug: "downtown",
@@ -28,6 +30,8 @@ export const neighborhoods: Neighborhood[] = [
       "Bar-hop through the Gaslamp",
       "Stroll the Embarcadero waterfront",
     ],
+    lat: 32.7157,
+    lng: -117.1611,
   },
   {
     slug: "little-italy",
@@ -42,6 +46,8 @@ export const neighborhoods: Neighborhood[] = [
       "Dine al fresco on India Street",
       "Grab gelato and people-watch",
     ],
+    lat: 32.7233,
+    lng: -117.1683,
   },
   {
     slug: "north-park",
@@ -56,6 +62,8 @@ export const neighborhoods: Neighborhood[] = [
       "Browse thrift stores on University Ave",
       "Catch live music at the Observatory",
     ],
+    lat: 32.7419,
+    lng: -117.1297,
   },
   {
     slug: "hillcrest",
@@ -70,6 +78,8 @@ export const neighborhoods: Neighborhood[] = [
       "Explore the weekly farmers market",
       "Experience Hillcrest's nightlife scene",
     ],
+    lat: 32.7482,
+    lng: -117.1611,
   },
   {
     slug: "coronado",
@@ -84,6 +94,8 @@ export const neighborhoods: Neighborhood[] = [
       "Relax on Coronado Beach",
       "Tour the Hotel del Coronado",
     ],
+    lat: 32.6859,
+    lng: -117.1831,
   },
   {
     slug: "pacific-beach",
@@ -98,6 +110,8 @@ export const neighborhoods: Neighborhood[] = [
       "Surf lessons at PB Point",
       "Sunset drinks at a beach bar",
     ],
+    lat: 32.7947,
+    lng: -117.2441,
   },
   {
     slug: "del-mar",
@@ -112,6 +126,8 @@ export const neighborhoods: Neighborhood[] = [
       "Visit Del Mar Racetrack",
       "Explore Del Mar Village shops",
     ],
+    lat: 32.9595,
+    lng: -117.2653,
   },
   {
     slug: "encinitas",
@@ -126,6 +142,8 @@ export const neighborhoods: Neighborhood[] = [
       "Browse shops on Coast Highway",
       "Visit the Self-Realization Fellowship gardens",
     ],
+    lat: 33.0369,
+    lng: -117.2919,
   },
 ];
 
